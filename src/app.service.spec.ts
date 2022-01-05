@@ -35,4 +35,13 @@ describe('AppService', () => {
     expect(response.results).toEqual([]);
     expect(response.count).toEqual(0);
   });
+
+  it('should return data when id provided', async () => {
+    const response = await service.getOne('films', 1);
+    expect(response).toBeTruthy();
+  });
+
+  it('should throw 404 when object with given id not found', async () => {
+    expect(service.getOne('films', 20)).rejects.toThrowError(NotFoundException);
+  });
 });

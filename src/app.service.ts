@@ -17,6 +17,17 @@ export class AppService {
     return await response.data;
   }
 
+  async getOne(thing: string, id: number) {
+    let response;
+    try {
+      response = await axios.get(`https://swapi.dev/api/${thing}/${id}`);
+    } catch (e) {
+      throw new NotFoundException(e.response.data);
+    }
+
+    return await response.data;
+  }
+
   private serializeQuery(query) {
     let stringQuery = '';
     Object.keys(query).forEach((key) => {
