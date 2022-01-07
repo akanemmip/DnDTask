@@ -5,6 +5,11 @@ import { AppService } from './app.service';
 export class AppController {
   constructor(private readonly service: AppService) {}
 
+  @Get('/films/openingCrawlAnalysis')
+  async openingCrawlAnalysis() {
+    // const arrayOfPairs = await this.service.getDictionary();
+    return await this.service.openingCrawlAnalysis();
+  }
   @Get('/films')
   async allFilms(@Query() query?) {
     return this.service.getAll('films', query);
