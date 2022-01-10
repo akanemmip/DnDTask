@@ -70,16 +70,6 @@ describe('AppService', () => {
     expect(response).toBeTruthy();
   });
 
-  it('should call create when id provided and not founded in db', async () => {
-    cacheService.findByRoute.mockResolvedValueOnce(undefined);
-    cacheService.create.mockResolvedValueOnce(undefined);
-
-    await service.getOne('species', 1);
-
-    expect(cacheService.findByRoute).toHaveBeenCalledTimes(1);
-    expect(cacheService.create).toHaveBeenCalledTimes(1);
-  });
-
   it('should throw 404 when object with given id not found', async () => {
     cacheService.findByRoute.mockResolvedValue(undefined);
     cacheService.create.mockResolvedValueOnce(undefined);

@@ -4,11 +4,14 @@ import { CreateCacheDto } from './dto/create-cache.dto';
 
 @Injectable()
 export class CacheService {
-  private ONE_DAY_MS = new Date().getTime() + 24 * 60 * 60 * 1000;
+  private ONE_DAY_MS = new Date(new Date().valueOf() - 24 * 3600 * 1000);
+
   constructor(private readonly prisma: PrismaService) {}
 
   async getAll() {
-    return await this.prisma.cache.findMany();
+    this.updateDB();
+    const data = await this.prisma.cache.findMany();
+    return { count: data.length, data };
   }
 
   async findByRoute(route: string) {
@@ -31,7 +34,7 @@ export class CacheService {
     await this.prisma.cache.deleteMany({
       where: {
         timestamp: {
-          gte: this.ONE_DAY_MS,
+          lte: this.ONE_DAY_MS,
         },
       },
     });

@@ -28,7 +28,7 @@ export class AppService {
         const data = {
           route,
           response: JSON.stringify(response),
-          timestamp: new Date().valueOf(),
+          timestamp: new Date(),
         };
         await this.cache.create(data);
       }
@@ -51,7 +51,7 @@ export class AppService {
         const data = {
           route,
           response: JSON.stringify(response),
-          timestamp: new Date().valueOf(),
+          timestamp: new Date(),
         };
         await this.cache.create(data);
       }
@@ -61,14 +61,14 @@ export class AppService {
   }
 
   async openingCrawlAnalysis() {
-    const uniquePairsArr = await this.getDictionary();
-    const mostPopularChar = await this.getMostPopularCharacter();
-    const trieNumber = await this.numberOfNodesTrie();
+    const uniquePairsArray = await this.getDictionary();
+    const mostPopularCharacter = await this.getMostPopularCharacter();
+    const trieNodesNumber = await this.numberOfNodesTrie();
 
     return {
-      a: uniquePairsArr,
-      b: mostPopularChar,
-      c: trieNumber,
+      uniquePairsArray,
+      mostPopularCharacter,
+      trieNodesNumber,
     };
   }
 

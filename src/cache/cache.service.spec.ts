@@ -18,7 +18,7 @@ describe('CacheService', () => {
   const example = {
     route: 'some/route',
     response: JSON.stringify({ title: 'The Mandalorian' }),
-    timestamp: new Date().valueOf(),
+    timestamp: new Date('2022-01-10T14:06:02.916Z'),
   };
   beforeEach(() => {
     jest.resetAllMocks();
@@ -48,11 +48,11 @@ describe('CacheService', () => {
   it('should return response when founded', async () => {
     prisma.cache.deleteMany.mockResolvedValue(undefined);
     prisma.cache.findUnique.mockResolvedValue({
-      response: JSON.stringify(example),
+      response: JSON.stringify(example.response),
     });
 
     const response = await service.findByRoute('some/route');
-    expect(response).toEqual(example);
+    expect(response).toEqual(example.response);
   });
 
   it('should return null when response not found', async () => {

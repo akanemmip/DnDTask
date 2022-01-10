@@ -4,6 +4,7 @@ import { AppController } from './app.controller';
 let controller: AppController;
 const service = {
   getAll: jest.fn(),
+  getOne: jest.fn(),
 };
 beforeAll(async () => {
   controller = new AppController(service as any);
@@ -20,32 +21,12 @@ describe('AppController', () => {
     expect(service.getAll).toHaveBeenCalledWith('films', undefined);
   });
 
-  it('should call species without query', async () => {
-    service.getAll.mockResolvedValueOnce([]);
-    await controller.allSpecies();
-    expect(service.getAll).toHaveBeenCalledTimes(1);
-    expect(service.getAll).toHaveBeenCalledWith('species', undefined);
-  });
+  it('should call films with an id', async () => {
+    service.getOne.mockResolvedValueOnce({ id: 1, title: 'The Mandalorian' });
+    await controller.oneFilm(1);
 
-  it('should call vehicles without query', async () => {
-    service.getAll.mockResolvedValueOnce([]);
-    await controller.allVehicles();
-    expect(service.getAll).toHaveBeenCalledTimes(1);
-    expect(service.getAll).toHaveBeenCalledWith('vehicles', undefined);
-  });
-
-  it('should call starships without query', async () => {
-    service.getAll.mockResolvedValueOnce([]);
-    await controller.allStarships();
-    expect(service.getAll).toHaveBeenCalledTimes(1);
-    expect(service.getAll).toHaveBeenCalledWith('starships', undefined);
-  });
-
-  it('should call planets without query', async () => {
-    service.getAll.mockResolvedValueOnce([]);
-    await controller.allPlanets();
-    expect(service.getAll).toHaveBeenCalledTimes(1);
-    expect(service.getAll).toHaveBeenCalledWith('planets', undefined);
+    expect(service.getOne).toHaveBeenCalledTimes(1);
+    expect(service.getOne).toHaveBeenCalledWith('films', 1);
   });
 
   it('should throw error when page does not exist', async () => {

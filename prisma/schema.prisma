@@ -11,8 +11,8 @@ datasource db {
 }
 
 model Cache {
-  id        Int    @id @default(autoincrement())
-  route     String @unique
+  id        Int      @id @default(autoincrement())
+  route     String   @unique
   response  String
-  timestamp Int
+  timestamp DateTime
 }
